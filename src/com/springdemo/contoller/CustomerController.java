@@ -52,4 +52,17 @@ public class CustomerController {
 		theModel.addAttribute("customer", customer);
 		return "customer-form";	
 	}
+	
+	@GetMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		customerService.deleteCustomer(theId);
+		return "redirect:/customer/list";
+	}
+	
+	@GetMapping("/search")
+	public String searchCustomer(@RequestParam("theSearchName") String theSearchName, Model theModel) {
+	        List<Customer> theCustomers = customerService.searchCustomer(theSearchName);
+	        theModel.addAttribute("customers", theCustomers);
+	        return "list-customers";        
+	    }
 }
